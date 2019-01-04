@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="b45528514aae45759f8658e85c3a6e93" Name="Diagram1">
+        <EntityTypeShape EntityType="TwitterCloneModel.Person" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="TwitterCloneModel.Tweet" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
+        <AssociationConnector Association="TwitterCloneModel.FK__Tweet__UserId__15502E78" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="TwitterCloneModel.Following" Width="1.5" PointX="3" PointY="4.375" />
+        <AssociationConnector Association="TwitterCloneModel.FK__Following__Follo__1920BF5C" />
+        <AssociationConnector Association="TwitterCloneModel.FK__Following__UserI__182C9B23" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

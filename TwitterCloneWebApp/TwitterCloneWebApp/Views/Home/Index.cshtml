@@ -1,0 +1,73 @@
+﻿@model TwitterCloneWebApp.Models.TweetsViewModel
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<style>
+    .form-rounded {
+        border-radius: 1rem;
+    }
+    table.table.table-striped {
+        border: 1px solid thin;
+    }
+</style>
+<div>
+    <span style="height:20px"></span>
+</div>
+
+<div class="sidenav">
+    <div>
+        Follow
+        <br />
+        <div class="inner-addon left-addon">
+            <i class="glyphicon glyphicon-search"></i>
+            <input type="text" id="txtSearchProfile" class="form-control form-rounded" placeholder="Search Person" />
+        </div>
+       <span id="errorMsg" style="color:red;display:none">Not found!</span>
+        <div class="row">
+            <span style="height:50px; "></span>
+        </div>
+        <br />
+        <br />
+        <ul class="list-unstyled">
+            <li><a  href="#Tweets"><u id="noOfTweets">@Model.NoOfTweets</u></a>Tweets</li>
+            <li><a href="#Following"><u>@Model.NoOfFollowings</u></a>Following</li>
+            <li><a href="#Followers"><u>@Model.NoOfFollowers</u></a>Followers</li>
+        </ul>
+    </div>
+</div>
+
+<div class="main">
+    <div class="input-group" style="width:100%">
+        <h5>What are you doing?</h5>
+        <textarea id="tweetMsg" class="form-control" maxlength="500" rows="3" placeholder="What's in your mind!'"></textarea>
+        <input type="hidden" id="hdnUserId" value="@Model.Username" />
+    </div>
+    <div style="width:100%; padding-top:10px">
+        <button id="btnUpdate" class="btn btn-primary pull-right">Update</button>
+    </div>
+    <br />
+    <div style="width:100%; padding-top:10px">
+        <div class="pull-left"><h4>Tweets</h4></div>
+        <table id="tweetsTable" class="table table-striped">
+            <tbody>
+                @foreach (var tweets in Model.Tweets)
+                {
+                    <tr class="table-light">
+                        <td>@tweets.UserId</td>
+                        <td>@tweets.Message</td>
+                        <td>@tweets.Created.ToString("MMM/dd HH:mm")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section scripts{
+
+    <script type="text/javascript">
+        var updateURL = '@Url.Action("UpdateTweet", "Home")';
+    </script>
+    @Scripts.Render("~/bundles/siteJquery")
+    }

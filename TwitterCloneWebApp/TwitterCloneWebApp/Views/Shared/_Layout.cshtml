@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyTwitterClone Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <style>
+        .navbar-brand {
+            position: absolute;
+            width: 100%;
+            left: 0;
+            text-align: center;
+            margin: 0 auto;
+        }
+
+        .navbar-toggle {
+            z-index: 3;
+        }
+    </style>
+</head>
+<body>
+@if (!string.IsNullOrEmpty(Convert.ToString(Session["UserName"])))
+{
+
+    <div class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-collapse collapse">
+                <a class="navbar-brand" href="#">My Twitter Clone</a>
+                <div class="navbar-collapse collapse">
+
+                    <ul class="nav navbar-nav navbar-right">
+
+                            <li>
+                                @Html.ActionLink("Welcome " + Session["FullName"] + "!", "Index", "Home", routeValues: null, htmlAttributes: new { title = "Manage" })
+                            </li>
+                            <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                            <li>@Html.ActionLink("Profile", "Profile", "Account", new { userName = Session["UserName"] }, null) </li>
+                            <li>@Html.ActionLink("Signout", "Signout", "Account")</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+}
+    <div class="container body-content">
+        @RenderBody()
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

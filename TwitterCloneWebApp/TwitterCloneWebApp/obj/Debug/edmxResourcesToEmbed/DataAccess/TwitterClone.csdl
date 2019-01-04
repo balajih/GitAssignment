@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TwitterCloneModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Person">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Pwd" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="FullName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Joined" Type="DateTime" Precision="3" />
+    <Property Name="active" Type="Boolean" />
+    <NavigationProperty Name="Tweets" Relationship="Self.FK__Tweet__UserId__15502E78" FromRole="Person" ToRole="Tweet" />
+    <NavigationProperty Name="Followings" Relationship="TwitterCloneModel.FK__Following__Follo__1920BF5C" FromRole="Person" ToRole="Following" />
+    <NavigationProperty Name="Followings1" Relationship="TwitterCloneModel.FK__Following__UserI__182C9B23" FromRole="Person" ToRole="Following" />
+  </EntityType>
+  <EntityType Name="Tweet">
+    <Key>
+      <PropertyRef Name="TweetId" />
+    </Key>
+    <Property Name="TweetId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Message" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Person" Relationship="Self.FK__Tweet__UserId__15502E78" FromRole="Tweet" ToRole="Person" />
+  </EntityType>
+  <Association Name="FK__Tweet__UserId__15502E78">
+    <End Role="Person" Type="Self.Person" Multiplicity="1" />
+    <End Role="Tweet" Type="Self.Tweet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Tweet">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="People" EntityType="Self.Person" />
+    <EntitySet Name="Tweets" EntityType="Self.Tweet" />
+    <AssociationSet Name="FK__Tweet__UserId__15502E78" Association="Self.FK__Tweet__UserId__15502E78">
+      <End Role="Person" EntitySet="People" />
+      <End Role="Tweet" EntitySet="Tweets" />
+    </AssociationSet>
+    <EntitySet Name="Followings" EntityType="TwitterCloneModel.Following" />
+    <AssociationSet Name="FK__Following__Follo__1920BF5C" Association="TwitterCloneModel.FK__Following__Follo__1920BF5C">
+      <End Role="Person" EntitySet="People" />
+      <End Role="Following" EntitySet="Followings" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Following__UserI__182C9B23" Association="TwitterCloneModel.FK__Following__UserI__182C9B23">
+      <End Role="Person" EntitySet="People" />
+      <End Role="Following" EntitySet="Followings" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Following">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="FollowingId" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Person" Relationship="TwitterCloneModel.FK__Following__Follo__1920BF5C" FromRole="Following" ToRole="Person" />
+    <NavigationProperty Name="Person1" Relationship="TwitterCloneModel.FK__Following__UserI__182C9B23" FromRole="Following" ToRole="Person" />
+  </EntityType>
+  <Association Name="FK__Following__Follo__1920BF5C">
+    <End Type="TwitterCloneModel.Person" Role="Person" Multiplicity="0..1" />
+    <End Type="TwitterCloneModel.Following" Role="Following" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Following">
+        <PropertyRef Name="FollowingId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Following__UserI__182C9B23">
+    <End Type="TwitterCloneModel.Person" Role="Person" Multiplicity="0..1" />
+    <End Type="TwitterCloneModel.Following" Role="Following" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Following">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
