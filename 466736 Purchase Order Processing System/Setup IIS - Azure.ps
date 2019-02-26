@@ -1,0 +1,15 @@
+New-AzureRmVm `
+    -ResourceGroupName "ResourceGroup1" `
+    -Name "NewVM" `
+    -ImageName "Image1" `
+    -Location "East US" `
+    -VirtualNetworkName "ImageVnet1" `
+    -SubnetName "ImageSubnet1" `
+    -SecurityGroupName "ImageNSG1" `
+    -PublicIpAddressName "ImagePIP1" `
+    -OpenPorts 4352
+
+New-WebAppPool AppPoolDev
+New-WebSite -Name "TestSite" -Port 80 -HostHeader "TestSite" -PhysicalPath "$Env:systemdrive\inetpub\testsite" -ApplicationPool AppPoolDev
+Set-WebConfigurationProperty '/system.applicationHost/sites/site[@name="Default Web Site"]' -Name Limits -Value @{MaxConnections=1000}
+Set-WebConfigurationProperty '/system.applicationHost/sites/site[@name="Default Web Site"]' -Name Limits -Value @{RequestQueueLimit=1000}
